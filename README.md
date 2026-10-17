@@ -29,3 +29,8 @@ Production: https://hem-three-peach.vercel.app (deploys automatically from main)
 
 If a release is broken: Vercel → hem → Deployments → previous production deployment → ⋯ → Instant Rollback.
 When the fix is merged: Undo Rollback (or Promote the newest deployment) so new pushes go live again.
+
+## CI
+
+Every push and pull request runs GitHub Actions (.github/workflows/ci.yml): lint, typecheck, unit tests and a production build on a clean Linux machine.
+main is protected: a pull request can be merged only when this check is green.

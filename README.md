@@ -22,9 +22,9 @@ You need Node.js 24 and Git.
 - Tests: Vitest
 ## Live site
 
-Production: https://YOUR-ADDRESS.vercel.app (deploys automatically from main)
+Production: https://hem-three-peach.vercel.app (deploys automatically from main)
 
 ## Rollback
 
-If a release is broken: Vercel → hem → Deployments → previous production deployment → https://hem-three-peach.vercel.app/ → Instant Rollback.
+If a release is broken: Vercel → hem → Deployments → previous production deployment → ⋯ → Instant Rollback.
 When the fix is merged: Undo Rollback (or Promote the newest deployment) so new pushes go live again.

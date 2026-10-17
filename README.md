@@ -34,3 +34,8 @@ When the fix is merged: Undo Rollback (or Promote the newest deployment) so new 
 
 Every push and pull request runs GitHub Actions (.github/workflows/ci.yml): lint, typecheck, unit tests and a production build on a clean Linux machine.
 main is protected: a pull request can be merged only when this check is green.
+
+## Backend
+
+Supabase, Free plan, region: West EU (Ireland), eu-west-1 (EU, so CV data stays in the EU).
+The database password and API keys are not in this repo. They live in a password manager, `.env.local` and Vercel.

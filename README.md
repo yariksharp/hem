@@ -26,5 +26,5 @@ Production: https://YOUR-ADDRESS.vercel.app (deploys automatically from main)
 
 ## Rollback
 
-If a release is broken: Vercel → hem → Deployments → previous production deployment → ⋯ → Instant Rollback.
+If a release is broken: Vercel → hem → Deployments → previous production deployment → https://hem-three-peach.vercel.app/ → Instant Rollback.
 When the fix is merged: Undo Rollback (or Promote the newest deployment) so new pushes go live again.

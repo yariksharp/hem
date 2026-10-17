@@ -1,0 +1,187 @@
+/*
+  Hem brand tokens, v3 (2026-10-17) — Shimmer is the default theme.
+  Source of truth for the app's colours, type and spacing.
+  The CV/PDF template does NOT use these; it has its own neutral tokens (--cv-*).
+
+  v3 changes from v2:
+  - Default theme is "Shimmer" (dark): values taken from prototype-shimmer/source/App.dc.html, class .sx.
+  - The v2 warm light theme stays as data-theme="light" (opt-in; a theme switcher is a later story).
+  - Typography for both themes: Unbounded (display), Geist (UI and body), Geist Mono (labels).
+    Unbounded is wide, so display sizes are 0.8x the v2 (Fraunces) sizes. Unbounded has no italic:
+    no italic emphasis in headings.
+  - The v2 navy dark theme is dropped (archive/tokens-v2-light.css keeps it).
+  v2 file: archive/tokens-v2-light.css.
+
+  Rules:
+  - Components use tokens only, never hard-coded colours, so both themes keep working.
+  - Thread orange marks only what the AI does (Tailor, Regenerate, Send in the chat, Write cover letter). User actions use ink.
+  - Change colours (add / remove / reword / reason) are semantic, never decorative. The CV sheet is white in every theme,
+    so the change marks keep light backgrounds in both themes.
+  - Never show a change or a status by colour alone.
+*/
+
+/* ---------- Theme-independent: type scale, spacing, motion, CV template ---------- */
+:root {
+  --hem-font-display: "Unbounded", "Helvetica Neue", system-ui, sans-serif;
+  --hem-font-sans:
+    "Geist", "Helvetica Neue", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hem-font-mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --hem-text-xs: 0.75rem; /* 12 captions */
+  --hem-text-sm: 0.875rem; /* 14 UI labels, buttons */
+  --hem-text-md: 1rem; /* 16 body */
+  --hem-text-lg: 1.125rem; /* 18 lead */
+  --hem-text-xl: 1.1rem; /* ~18 section titles (Unbounded; was 22 in Fraunces) */
+  --hem-text-2xl: 1.4rem; /* ~22 page titles (Unbounded; was 28) */
+  --hem-text-3xl: 1.8rem; /* ~29 hero in the app (Unbounded; was 36) */
+  --hem-text-4xl: 2.4rem; /* ~38 marketing only (Unbounded; was 48) */
+  --hem-leading-tight: 1.1;
+  --hem-leading-body: 1.55;
+  --hem-tracking-display: -0.03em;
+
+  --hem-space-1: 0.25rem;
+  --hem-space-2: 0.5rem;
+  --hem-space-3: 0.75rem;
+  --hem-space-4: 1rem;
+  --hem-space-6: 1.5rem;
+  --hem-space-8: 2rem;
+  --hem-space-12: 3rem;
+  --hem-space-16: 4rem;
+
+  --hem-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --hem-ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --hem-radius-sm: 4px;
+  --hem-radius-md: 8px;
+
+  /* CV template. OPEN: the CV font is still to be decided (handoff spec §10). Keep it simple and ATS-safe. */
+  --cv-bg: #ffffff;
+  --cv-text: #111111;
+  --cv-muted: #444444;
+  --cv-font: "Inter", Arial, Helvetica, sans-serif;
+}
+
+/* ---------- Shimmer (default, dark) ---------- */
+:root,
+:root[data-theme="shimmer"] {
+  --hem-ink: #e6eee8;
+  --hem-ink-2: #a8b7af;
+  --hem-ink-3: #83948c;
+  --hem-navy: #3b2fa8; /* avatar */
+  --hem-paper: #070b0a;
+  --hem-paper-raised: #0f1916;
+  --hem-paper-sunken: #0b1311;
+  --hem-ink-tint: #13201c;
+  --hem-line: rgba(214, 255, 236, 0.1);
+  --hem-line-strong: rgba(214, 255, 236, 0.26);
+  --hem-thread: #ff8a57;
+  --hem-thread-hover: #ffa27a;
+  --hem-thread-tint: rgba(255, 138, 87, 0.16);
+  --hem-on-thread: #1a0b04;
+  --hem-fill-primary: #e6eee8;
+  --hem-on-primary: #070b0a;
+  --hem-focus: #7fe8d6;
+  --hem-add-bg: #d7f5ec;
+  --hem-add-fg: #0a5244;
+  --hem-add-line: #1f9e83;
+  --hem-remove-bg: #fde3ec;
+  --hem-remove-fg: #8c1d47;
+  --hem-remove-line: #d6437a;
+  --hem-reword-bg: #eae4ff;
+  --hem-reword-fg: #47279f;
+  --hem-reword-line: #8467ee;
+  --hem-reason-bg: rgba(185, 164, 255, 0.12);
+  --hem-reason-fg: #d9dee8;
+  --hem-success: #7fe8d6;
+  --hem-warning: #f2d98b;
+  --hem-warning-bg: rgba(242, 217, 139, 0.14);
+  --hem-danger: #ff8fa8;
+  --hem-danger-bg: rgba(214, 67, 122, 0.18);
+  /* TODO: Technical-interview status is not defined in the Shimmer prototype (R2). Define before building the tracker. */
+
+  /* Iridescent accents (decoration only: gradient text, dome, lightning) */
+  --hem-iri-teal: #7fe8d6;
+  --hem-iri-sky: #9be7ff;
+  --hem-iri-violet: #b9a4ff;
+  --hem-iri-periwinkle: #a5b4fc;
+  --hem-iri-gold: #f2d98b;
+  --hem-iri-gradient: linear-gradient(
+    100deg,
+    #a5b4fc 0%,
+    #9be7ff 22%,
+    #b9a4ff 44%,
+    #f2d98b 64%,
+    #7fe8d6 82%,
+    #a5b4fc 100%
+  );
+  --hem-page-glow:
+    radial-gradient(
+      60% 45% at 92% 105%,
+      rgba(185, 164, 255, 0.16),
+      transparent 70%
+    ),
+    radial-gradient(
+      45% 35% at 100% 0%,
+      rgba(155, 231, 255, 0.08),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 30% at 0% 0%,
+      rgba(127, 232, 214, 0.06),
+      transparent 70%
+    );
+
+  --hem-radius-lg: 14px;
+  --hem-shadow-pop:
+    0 14px 34px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(214, 255, 236, 0.08);
+  --hem-shadow-sheet:
+    0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -16px rgba(0, 0, 0, 0.75),
+    0 0 50px -20px rgba(127, 232, 214, 0.3);
+  color-scheme: dark;
+}
+
+/* ---------- Light (v2 warm palette, opt-in) ---------- */
+:root[data-theme="light"] {
+  --hem-ink: #2a2420;
+  --hem-ink-2: #5a4f45;
+  --hem-ink-3: #6f6356;
+  --hem-navy: #1f2a44;
+  --hem-paper: #fffcf7;
+  --hem-paper-raised: #ffffff;
+  --hem-paper-sunken: #f7f2ea;
+  --hem-ink-tint: #f3eadd;
+  --hem-line: #ede5d8;
+  --hem-line-strong: #948877;
+  --hem-thread: #c2410c;
+  --hem-thread-hover: #a3360a;
+  --hem-thread-tint: #f8e3d6;
+  --hem-on-thread: #ffffff;
+  --hem-fill-primary: #2a2420;
+  --hem-on-primary: #fffcf7;
+  --hem-focus: #3557c9;
+  --hem-add-bg: #dcebd5;
+  --hem-add-fg: #14532d;
+  --hem-add-line: #4d7c3a;
+  --hem-remove-bg: #f6e0de;
+  --hem-remove-fg: #8f2424;
+  --hem-remove-line: #b4443f;
+  --hem-reword-bg: #ece7f3;
+  --hem-reword-fg: #3f3366;
+  --hem-reword-line: #7468a6;
+  --hem-reason-bg: #f5eee3;
+  --hem-reason-fg: #3d3a33;
+  --hem-success: #2f6b2a;
+  --hem-warning: #8a5a00;
+  --hem-warning-bg: #f7ebcb;
+  --hem-danger: #a12a2a;
+  --hem-danger-bg: #f6e0de;
+  --hem-status-tech-bg: #dcedea;
+  --hem-status-tech-fg: #1f5b55;
+  --hem-status-tech-line: #4f8f87;
+  --hem-page-glow: none;
+  --hem-radius-lg: 12px;
+  --hem-shadow-pop:
+    0 8px 24px rgba(42, 36, 32, 0.12), 0 2px 6px rgba(42, 36, 32, 0.08);
+  --hem-shadow-sheet:
+    0 1px 2px rgba(42, 36, 32, 0.08), 0 4px 16px rgba(42, 36, 32, 0.06);
+  color-scheme: light;
+}

@@ -1,0 +1,31 @@
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hem-space-4);
+  padding: var(--hem-space-8);
+}
+
+.wordmark {
+  font-family: var(--hem-font-display);
+  font-size: var(--hem-text-4xl);
+  font-weight: 500;
+  letter-spacing: var(--hem-tracking-display);
+  line-height: var(--hem-leading-tight);
+}
+
+.dot {
+  color: var(--hem-thread);
+}
+
+.note {
+  color: var(--hem-ink-2);
+}
+
+.env {
+  font-family: var(--hem-font-mono);
+  font-size: var(--hem-text-xs);
+  color: var(--hem-ink-3);
+}

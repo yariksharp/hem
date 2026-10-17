@@ -20,6 +20,7 @@ You need Node.js 24 and Git.
 - Next.js 16 with the App Router, TypeScript in strict mode
 - Styling: plain CSS with the Hem design tokens (src/styles/tokens.css), no Tailwind
 - Tests: Vitest
+
 ## Live site
 
 Production: https://hem-three-peach.vercel.app (deploys automatically from main)

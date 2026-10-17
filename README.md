@@ -20,3 +20,11 @@ You need Node.js 24 and Git.
 - Next.js 16 with the App Router, TypeScript in strict mode
 - Styling: plain CSS with the Hem design tokens (src/styles/tokens.css), no Tailwind
 - Tests: Vitest
+## Live site
+
+Production: https://YOUR-ADDRESS.vercel.app (deploys automatically from main)
+
+## Rollback
+
+If a release is broken: Vercel → hem → Deployments → previous production deployment → ⋯ → Instant Rollback.
+When the fix is merged: Undo Rollback (or Promote the newest deployment) so new pushes go live again.

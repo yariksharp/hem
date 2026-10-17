@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Unbounded } from "next/font/google";
 import "@/styles/tokens.css";
 import "./globals.css";
+
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +25,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${unbounded.variable} ${geistSans.variable} ${geistMono.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

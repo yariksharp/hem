@@ -1,0 +1,12 @@
+/* Inline alert (handoff spec §6.16, sign-in error in the prototype). Tokens only. */
+.alert {
+  padding: var(--hem-space-3) var(--hem-space-4);
+  border-radius: var(--hem-radius-md);
+  font-size: var(--hem-text-sm);
+  line-height: var(--hem-leading-body);
+}
+
+.error {
+  background: var(--hem-danger-bg);
+  color: var(--hem-danger);
+}

@@ -1,0 +1,77 @@
+/* Button (handoff spec §6.1, prototype class .btn / .btn-ink). Tokens only. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hem-space-2);
+  min-height: 44px;
+  padding: 0 var(--hem-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--hem-radius-md);
+  font-family: var(--hem-font-sans);
+  font-size: var(--hem-text-sm);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.25s var(--hem-ease-out),
+    opacity 0.25s var(--hem-ease-out);
+}
+
+.button:hover:not(:disabled, [aria-busy="true"]) {
+  transform: translateY(-1px);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--hem-focus);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.button[aria-busy="true"] {
+  cursor: progress;
+}
+
+.primary {
+  background: var(--hem-fill-primary);
+  color: var(--hem-on-primary);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.spinner {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .button:hover:not(:disabled, [aria-busy="true"]) {
+    transform: none;
+  }
+
+  .spinner {
+    animation: none;
+  }
+}

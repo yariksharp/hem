@@ -16,6 +16,8 @@
   cursor: pointer;
   transition:
     transform 0.25s var(--hem-ease-out),
+    background-color 0.25s var(--hem-ease-out),
+    color 0.25s var(--hem-ease-out),
     opacity 0.25s var(--hem-ease-out);
 }
 
@@ -40,6 +42,22 @@
 .primary {
   background: var(--hem-fill-primary);
   color: var(--hem-on-primary);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--hem-ink-2);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--hem-paper-sunken);
+  color: var(--hem-ink);
+}
+
+.sm {
+  min-height: 32px;
+  padding: 0 var(--hem-space-3);
+  font-size: var(--hem-text-xs);
 }
 
 .fullWidth {

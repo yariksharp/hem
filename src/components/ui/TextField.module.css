@@ -25,6 +25,24 @@
   transition: border-color 0.2s var(--hem-ease-out);
 }
 
+.control {
+  position: relative;
+}
+
+.withAction {
+  padding-right: var(--hem-space-16);
+}
+
+/* Centred with flex, not transform, so the button's hover lift still works. */
+.action {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: var(--hem-space-2);
+  display: flex;
+  align-items: center;
+}
+
 .input::placeholder {
   color: var(--hem-ink-3);
 }

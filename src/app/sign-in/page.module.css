@@ -1,0 +1,97 @@
+.page {
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
+
+.formSide {
+  flex: 1 1 460px;
+  min-width: 0;
+  padding: var(--hem-space-8) var(--hem-space-12);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--hem-space-8);
+}
+
+.wordmark {
+  font-family: var(--hem-font-display);
+  font-size: var(--hem-text-2xl);
+  font-weight: 500;
+  letter-spacing: var(--hem-tracking-display);
+  line-height: 1;
+}
+
+.dot {
+  color: var(--hem-thread);
+}
+
+.footer {
+  font-size: var(--hem-text-xs);
+  color: var(--hem-ink-3);
+}
+
+.panel {
+  flex: 1 1 560px;
+  min-width: 0;
+  min-height: 680px;
+  margin: var(--hem-space-4);
+  border: 1px solid var(--hem-line);
+  border-radius: var(--hem-radius-lg);
+  background: var(--hem-paper-sunken);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.panelText {
+  padding: var(--hem-space-8) var(--hem-space-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hem-space-2);
+}
+
+.tagline {
+  font-family: var(--hem-font-display);
+  font-size: var(--hem-text-2xl);
+  line-height: var(--hem-leading-tight);
+  letter-spacing: var(--hem-tracking-display);
+}
+
+/* Iridescent gradient text (decoration only). */
+.iri {
+  background: var(--hem-iri-gradient);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: iri 10s linear infinite;
+}
+
+@keyframes iri {
+  to {
+    background-position: 300% 0;
+  }
+}
+
+.panelLead {
+  color: var(--hem-ink-2);
+}
+
+/* The panel is desktop only (handoff spec S01: hidden below 960px). */
+@media (max-width: 960px) {
+  .panel {
+    display: none;
+  }
+
+  .formSide {
+    padding: var(--hem-space-8) var(--hem-space-6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iri {
+    animation: none;
+  }
+}

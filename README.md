@@ -14,12 +14,30 @@ You need Node.js 24 and Git.
     npm run lint    # ESLint: likely bugs
     npm run format  # Prettier: code style
     npm test        # Vitest: unit tests
+    npm run build   # production build (needed before the integration tests)
+    npm run test:e2e  # Playwright: integration tests in a real browser
 
 ## Tech choices
 
 - Next.js 16 with the App Router, TypeScript in strict mode
 - Styling: plain CSS with the Hem design tokens (src/styles/tokens.css), no Tailwind
-- Tests: Vitest
+- Unit tests: Vitest, next to the code in `src/` (`*.test.ts`)
+- Integration tests: Playwright (Chromium), in `e2e/`. Chosen because it drives a real browser against the real build, so it covers what unit tests can't: redirects, cookies, sign-in with Supabase and keyboard use.
+
+## Integration tests
+
+They run against the production build on port 3100, started by Playwright itself.
+
+First time only: `npx playwright install chromium` downloads the test browser.
+
+The sign-in tests use a **separate test account**, never your own:
+
+1. Supabase → Authentication → Users → Add user → Create new user, tick **Auto Confirm User**.
+2. Put its email and password in `.env.local` as `E2E_EMAIL` and `E2E_PASSWORD`.
+3. Add the same two as GitHub secrets (repo → Settings → Secrets and variables → Actions), plus `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+
+Without `E2E_EMAIL` / `E2E_PASSWORD` the account tests are skipped locally. In CI they are required.
+Traces, videos and screenshots are switched off so the test password is never recorded.
 
 ## Live site
 
@@ -32,7 +50,7 @@ When the fix is merged: Undo Rollback (or Promote the newest deployment) so new 
 
 ## CI
 
-Every push and pull request runs GitHub Actions (.github/workflows/ci.yml): lint, typecheck, unit tests and a production build on a clean Linux machine.
+Every push and pull request runs GitHub Actions (.github/workflows/ci.yml): lint, typecheck, unit tests, a production build and the Playwright integration tests on a clean Linux machine.
 main is protected: a pull request can be merged only when this check is green.
 
 ## Backend

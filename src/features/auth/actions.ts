@@ -37,3 +37,13 @@ export async function signIn(
   // redirect() throws on purpose, so it must stay outside any try/catch.
   redirect("/");
 }
+
+// Server Function for the Sign out button: ends the session, clears the cookies.
+export async function signOut() {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error("Sign-out failed:", error.code ?? "no_code", error.status);
+  }
+  redirect("/sign-in");
+}

@@ -4,6 +4,10 @@ import type { ComponentPropsWithRef } from "react";
 import styles from "./Button.module.css";
 
 type ButtonProps = ComponentPropsWithRef<"button"> & {
+  /** "primary" = ink fill for main user actions; "ghost" = quiet text button (e.g. Show/Hide). */
+  variant?: "primary" | "ghost";
+  /** "sm" = 32px high, only inside dense spots like a field. */
+  size?: "md" | "sm";
   /** Stretch to the width of the parent (e.g. "Sign in"). */
   fullWidth?: boolean;
   /** Show a spinner and ignore clicks while waiting. */
@@ -12,8 +16,10 @@ type ButtonProps = ComponentPropsWithRef<"button"> & {
   loadingLabel?: string;
 };
 
-// Primary "ink" button (handoff spec §6.1). Other variants come with the screens that need them.
+// Button (handoff spec §6.1). Other variants come with the screens that need them.
 export function Button({
+  variant = "primary",
+  size = "md",
   fullWidth = false,
   loading = false,
   loadingLabel,
@@ -25,7 +31,8 @@ export function Button({
 }: ButtonProps) {
   const classes = [
     styles.button,
-    styles.primary,
+    styles[variant],
+    size === "sm" && styles.sm,
     fullWidth && styles.fullWidth,
     className,
   ]

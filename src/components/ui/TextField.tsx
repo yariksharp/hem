@@ -1,4 +1,4 @@
-import { useId, type ComponentPropsWithRef } from "react";
+import { useId, type ComponentPropsWithRef, type ReactNode } from "react";
 import styles from "./TextField.module.css";
 
 type TextFieldProps = ComponentPropsWithRef<"input"> & {
@@ -7,6 +7,8 @@ type TextFieldProps = ComponentPropsWithRef<"input"> & {
   help?: string;
   /** Error under the field. Also marks the input as invalid. */
   error?: string;
+  /** Small control inside the right edge of the input, e.g. a Show/Hide button. */
+  action?: ReactNode;
 };
 
 // Label above, input, then help or error text below (handoff spec §6.2).
@@ -14,6 +16,7 @@ export function TextField({
   label,
   help,
   error,
+  action,
   id,
   className,
   ...rest
@@ -28,13 +31,18 @@ export function TextField({
       <label className={styles.label} htmlFor={inputId}>
         {label}
       </label>
-      <input
-        id={inputId}
-        className={styles.input}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={note ? noteId : undefined}
-        {...rest}
-      />
+      <div className={styles.control}>
+        <input
+          id={inputId}
+          className={[styles.input, action && styles.withAction]
+            .filter(Boolean)
+            .join(" ")}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={note ? noteId : undefined}
+          {...rest}
+        />
+        {action && <span className={styles.action}>{action}</span>}
+      </div>
       {note && (
         <p id={noteId} className={error ? styles.error : styles.help}>
           {note}

@@ -48,6 +48,10 @@ export function SignInForm() {
   return (
     <form
       className={[styles.form, shake && styles.shake].filter(Boolean).join(" ")}
+      // Before the JavaScript has loaded, the browser POSTs straight to the Server
+      // Function. Without this, an early Enter would put the password in the URL.
+      action={signInAction}
+      // Once loaded, handleSubmit takes over (and always calls preventDefault).
       onSubmit={handleSubmit}
       // Remove the class when the shake ends, so the next empty submit shakes again.
       onAnimationEnd={(event) => {

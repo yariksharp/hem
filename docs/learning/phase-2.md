@@ -46,6 +46,28 @@ Git is version control on my PC; GitHub is a website that hosts a copy of the re
 in the history (before `e5267b9 Add CI workflow`) have no `(#N)` because they were pushed
 straight to `main` before the protection existed.
 
+**The whole flow, as a new developer on the team:**
+
+1. Install Git, then `git clone` the repo, `npm install`, and copy `.env.example` to
+   `.env.local` with the real values.
+2. Before each piece of work: `git switch main`, `git pull` (get everything merged since
+   last time), then `git switch -c <feature-branch>`. One branch = one change I can
+   explain in a sentence, merged within a few days (in Hem: one subtask).
+3. Change files and commit as I go. Each commit is a snapshot I can go back to. The
+   branch stays only on my PC until I push.
+4. `git push`: the branch appears on GitHub. Then open a PR into `main`.
+5. CI starts on its own (lint, typecheck, unit tests, build, Playwright) and Vercel builds
+   a preview. In a team, a reviewer looks at the PR at the same time. In Hem there is no
+   reviewer (0 required approvals), so the green `ci` check is the only gate.
+6. When everything is green, Merge puts the branch into `main` and production updates.
+   Delete the branch.
+7. `git switch main` and `git pull` (not push!) to bring the merged result to my PC.
+
+Push sends commits **up** to GitHub; pull brings them **down**.
+
+If two people change the same lines, Git can't merge by itself (a merge conflict) and
+someone chooses by hand. A branch that's never merged never reaches production.
+
 ## Environments: local, preview, production
 
 Same code, different settings. **Local** is my PC (`npm run dev`, localhost:3000,
@@ -54,6 +76,11 @@ built for every push to a branch that isn't `main`, with its own URL in the PR.
 **Production** is the real site, built from `main`: https://hem-three-peach.vercel.app.
 In HEM-38, `NEXT_PUBLIC_APP_ENV` showed `local`, `preview` or `production` on the page.
 `NEXT_PUBLIC_` values are visible in the browser, so never use that prefix for secrets.
+
+A preview is a real, working website built from my branch, not a picture. Ours are
+protected by Vercel Authentication, so only I can open them. There is only one Supabase
+project, so if a preview has the Supabase variables, it uses the same database as
+production, and sign-in there changes real data.
 
 ## Hosting, DNS and HTTPS
 
@@ -92,10 +119,15 @@ without use.
 
 ## What is still unclear to me
 
-- Git was the weakest part: before the review I mixed up push, pull and pull request.
-  I want to practise the branch → commit → push → PR → merge loop until I can do it
-  without the recipe.
+- Git was the weakest part: before the review I mixed up push, pull and pull request,
+  and I still reached for `git push` at the end instead of `git pull`. I want to
+  practise the loop until I can do it without the recipe.
+- Whether the Supabase variables in Vercel are set for Preview, so whether sign-in
+  works on a preview at all. Not checked yet.
 - What exactly a TLS certificate is and how the browser checks it.
 - I didn't know what CD meant even though we already have it (Vercel auto-deploy).
+- On 29 Oct `/api/health` in production returned 503: Supabase had most likely paused
+  the project after a week without use (README "pause rule"). I resumed it from the
+  dashboard. I want a way to notice this without checking by hand.
 - How Vercel runs our server code (serverless functions, not one always-on computer).
 - How the Supabase session and cookies keep me signed in after a reload (`src/proxy.ts`).
